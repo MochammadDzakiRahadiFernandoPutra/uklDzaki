@@ -1,45 +1,43 @@
-import BookRow from "@/component/book/BookRow";
+import writers from "@/data/writers";
+type ParamsType = Promise<{
+  id: string
+}>
 
-export default function BookList() {
-  const books = [
-    {
-      id: 1,
-      cover: "/bird.jpg",
-      title: "The Great Gatsby",
-      author: "F. Scott Fitzgerald",
-      totalPages: 200,
-    },
-    {
-      id: 2,
-      cover: "/don.jpg",
-      title: "To Kill a Mockingbird",
-      author: "Harper Lee",
-      totalPages: 250,
-    },
-    {
-      id: 3,
-      cover: "/wild.jpg",
-      title: "1984",
-      author: "George Orwell",
-      totalPages: 180,
-    },
-  ];
+export default async function WriterDetail({ params }: { params: ParamsType }) {
+        // ⬅ debug
+  console.log("ALL IDS:", writers.map(w => w.id)); // ⬅ debug
+    const {id } = await params;
+  const writer = writers.find((w) => w.id === id);
+
+  if (!writer) {
+    return (
+      <div className="p-6">
+        <p className="text-red-500 font-semibold">Writer not found.</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="max-w-2xl mx-auto bg-white shadow rounded-2xl p-6 mt-20">
-      <h1 className="text-2xl font-bold mb-4 text-gray-600">Book list</h1>
+    <div className="p-6 max-w-xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Writer</h1>
 
-      {/* Table header */}
-      <div className="grid grid-cols-4 px-4 py-4 text-gray-500 font-medium border-b bg-white">
-        <p>Cover</p>
-        <p>Title</p>
-        <p>Author</p>
-        <p>Progress</p>
+      <div className="p-6 border rounded-xl shadow bg-white">
+        <div className="flex items-center gap-4 mb-4">
+          <img
+            src={writer.avatarUrl}
+            className="w-14 h-14 rounded-full"
+          />
+
+          <div>
+            <p className="text-xl text-black font-semibold">{writer.name}</p>
+            <p className="text-gray-600">
+              {writer.followers.toLocaleString()} followers
+            </p>
+          </div>
+        </div>
+
+        <p className="text-gray-700 leading-relaxed">{writer.bio}</p>
       </div>
-
-      {books.map((b) => (
-        <BookRow key={b.id} book={b} />
-      ))}
     </div>
   );
 }
