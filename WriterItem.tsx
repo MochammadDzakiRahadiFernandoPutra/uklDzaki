@@ -21,9 +21,9 @@ export default function WriterItem({ writer }: { writer: Writer }) {
           src={writer.avatarUrl}
           className="rounded-full w-12 h-12 sm:w-14 sm:h-14"
         />
-
+        {/*info*/}
         <div className="min-w-0">
-          <p className="font-semibold text-base sm:text-lg truncate">
+          <p className="font-semibold text-base sm:text-lg truncate text-black">
             {writer.name}
           </p>
           <p className="text-sm text-gray-500">
