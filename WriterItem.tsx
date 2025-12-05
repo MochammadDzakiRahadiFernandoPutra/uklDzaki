@@ -21,13 +21,16 @@ export default function WriterItem({ writer }: { writer: Writer }) {
           src={writer.avatarUrl}
           className="rounded-full w-12 h-12 sm:w-14 sm:h-14"
         />
-        {/*info*/}
+        {/* Info */}
         <div className="min-w-0">
-          <p className="font-semibold text-base sm:text-lg truncate text-black">
+          <p className="font-semibold text-base sm:text-lg text-black truncate">
             {writer.name}
           </p>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-black">
             {writer.followers.toLocaleString()} followers
+          </p>
+          <p className="text-sm text-gray-500 truncate mt-1">
+            {writer.bio}
           </p>
         </div>
       </Link>
