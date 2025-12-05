@@ -1,39 +1,43 @@
-export default function Home() {
+import writers from "@/data/writers";
+type ParamsType = Promise<{
+  id: string
+}>
+
+export default async function WriterDetail({ params }: { params: ParamsType }) {
+        // ⬅ debug
+  console.log("ALL IDS:", writers.map(w => w.id)); // ⬅ debug
+    const {id } = await params;
+  const writer = writers.find((w) => w.id === id);
+
+  if (!writer) {
+    return (
+      <div className="p-6">
+        <p className="text-red-500 font-semibold">Writer not found.</p>
+      </div>
+    );
+  }
+
   return (
-    <main className="min-h-screen bg-white flex items-center">
-      <section className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16 px-6 py-16">
+    <div className="p-6 max-w-xl mx-auto">
+      <h1 className="text-2xl font-bold mb-4">Writer</h1>
 
-        {/* gambar */}
-        <div className="w-full md:w-1/2 flex justify-center">
-          <div className="bg-white shadow-lg rounded-2xl p-12 
-                          transform transition-all duration-300 ">
+      <div className="p-6 border rounded-xl shadow bg-white">
+        <div className="flex items-center gap-4 mb-4">
+          <img
+            src={writer.avatarUrl}
+            className="w-14 h-14 rounded-full"
+          />
 
-            <img
-              src="/laptop.jpg"
-              alt="Software Engineering Illustration"
-              className="w-64 h-64 object-contain md:w-72 md:h-72"
-            />
+          <div>
+            <p className="text-xl text-black font-semibold">{writer.name}</p>
+            <p className="text-gray-600">
+              {writer.followers.toLocaleString()} followers
+            </p>
           </div>
         </div>
 
-        {/* isi */}
-        <div className="w-full md:w-1/2">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900 leading-tight capitalize">
-            software engineering
-          </h2>
-
-          <p className="text-gray-600 mb-10 md:mb-12 text-lg leading-relaxed">
-            Rekayasa perangkat lunak adalah penerapan prinsip-prinsip rekayasa secara
-            sistematis untuk merancang, mengembangkan, menguji, dan memelihara perangkat
-            lunak. Disiplin ini berfokus pada solusi berkualitas tinggi yang efisien,
-            terstruktur, dan memenuhi kebutuhan pengguna secara menyeluruh.
-          </p>
-
-          <p className="font-semibold text-gray-800 text-lg">
-            SMK Telkom Malang
-          </p>
-        </div>
-      </section>
-    </main>
+        <p className="text-gray-700 leading-relaxed">{writer.bio}</p>
+      </div>
+    </div>
   );
 }
